@@ -141,7 +141,7 @@ webpack。もうすでに何をするツールなのか説明しがたいくら�
 
 ## package.jsonの中のscriptsで何をしているか
 
-```
+```json
 "scripts": {
   "webpack": "webpack -w",
   "lite": "lite-server",
@@ -156,7 +156,7 @@ npm start
 ```
 このコマンドでlite-serverを立ち上げwebpackでwatchを行いcssの変更を監視するようにしている。  
 
-```
+```json
 "start": "concurrently \"npm run lite\" \"npm run webpack\" \"npm run watch-css\""
 ```
 scriptsの中にあるstartがこれにあたる。
@@ -172,17 +172,17 @@ npm run watch-css
 ```
 これらのコマンドはそれぞれ独立したコマンドですが、最初にちょっと触れたがconcurrentlyにダブルクオーテーションでくくってスペースで区切って引数で渡せば並行して実行することになる。便利。
 
-```
+```json
 "webpack": "webpack -w",
 ```
 これはwebpackのwatch（監視）を走らせている。こちらも後ほど触れるがwebpack.config.jsonで記述されたことをもとに監視している。
 
-```
+```json
 "lite": "lite-server",
 ```
 lite-serverを立ち上げている。bs-config.jsonに設定ないようを記述している（こちらも後ほど触れる）。
 
-```
+```json
 "build-css": "node-sass ./src/scss/app.scss ./app/styles/app.css --output-style compressed",
 ```
 Sass（Scss）をnode-sassを使ってコンパイルしている。  
@@ -193,7 +193,7 @@ Sass（Scss）をnode-sassを使ってコンパイルしている。
 
 [Sass Documentation(output_style)](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#output_style)
 
-```
+```json
 "watch-css": "nodemon -e scss -x \"npm run build-css\"",
 ```
 nodemonを使ってscssファイルを監視し、変更があれば「npm run build-css」を走らせるという設定。  
@@ -220,7 +220,7 @@ webpackの設定はいたってシンプル。entryにもとファイル（複�
 
 ## bs-config.json
 
-```
+```json
 {
   "injectChanges": "true",
   "files": ["./app/**/*.{html,htm,css,js}"],
@@ -235,4 +235,3 @@ lite-serverの設定はドキュメントルートをappの直下にしたかっ
 個人的にはThree.jsやp5.jsを気軽に試したいときの環境をさくっと用意したかったために用意した感じになる。  
 あとReact.jsを使うためにそもそもwebpackをはじめたのでReact.js版も公開します。  
 まだwebpackをはじめて数日とかという状態なので間違えや指摘をいただけると助かります。
-
